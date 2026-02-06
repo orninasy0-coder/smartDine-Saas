@@ -9,13 +9,13 @@
 ### 1. إعداد البيئة والمشروع الأساسي
 
 - [x] 1.1 إنشاء مشروع React مع TypeScript و Vite
-- [ ] 1.2 تكوين Tailwind CSS و Framer Motion
-- [ ] 1.3 إعداد shadcn/ui
-  - [ ] 1.3.1 تثبيت shadcn/ui CLI
-  - [ ] 1.3.2 تكوين components.json
-  - [ ] 1.3.3 إضافة المكونات الأساسية (Button, Input, Card, Dialog, etc.)
-  - [ ] 1.3.4 تخصيص theme colors
-- [ ] 1.4 إعداد React Router للتوجيه
+- [x] 1.2 تكوين Tailwind CSS و Framer Motion
+- [x] 1.3 إعداد shadcn/ui
+  - [x] 1.3.1 تثبيت shadcn/ui CLI
+  - [x] 1.3.2 تكوين components.json
+  - [x] 1.3.3 إضافة المكونات الأساسية (Button, Input, Card, Dialog, etc.)
+  - [x] 1.3.4 تخصيص theme colors
+- [x] 1.4 إعداد React Router للتوجيه
 - [ ] 1.5 إعداد React Query لإدارة الحالة
 - [ ] 1.6 إنشاء بنية المجلدات (components, pages, hooks, utils, services)
   - [ ] 1.6.1 Modular folder architecture
