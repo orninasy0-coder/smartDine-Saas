@@ -4,7 +4,7 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { AuthProvider, useAuthContext } from './AuthContext';
 import { tokenService } from '@/services/token';
 import { authService } from '../services';
@@ -55,7 +55,7 @@ describe('AuthContext', () => {
     const mockUser = {
       id: '1',
       email: 'test@example.com',
-      role: 'customer' as const,
+      role: 'CUSTOMER' as const,
       twoFactorEnabled: false,
       createdAt: '2024-01-01',
       updatedAt: '2024-01-01',
@@ -86,7 +86,7 @@ describe('AuthContext', () => {
     const mockUser = {
       id: '1',
       email: 'test@example.com',
-      role: 'customer' as const,
+      role: 'CUSTOMER' as const,
       twoFactorEnabled: false,
       createdAt: '2024-01-01',
       updatedAt: '2024-01-01',
@@ -108,7 +108,7 @@ describe('AuthContext', () => {
     const mockUser = {
       id: '1',
       email: 'test@example.com',
-      role: 'customer' as const,
+      role: 'CUSTOMER' as const,
       twoFactorEnabled: false,
       createdAt: '2024-01-01',
       updatedAt: '2024-01-01',

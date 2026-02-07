@@ -3,7 +3,7 @@
  * Protects routes by checking authentication status and optionally user roles
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/features/auth/hooks';
 import { Loading } from '@/components/common';

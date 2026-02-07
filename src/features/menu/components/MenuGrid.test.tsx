@@ -5,7 +5,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MenuGrid } from './MenuGrid';
-import { Dish } from '@/utils/types';
+import type { Dish } from '@/utils/types';
 
 // Mock DishCard component
 vi.mock('./DishCard', () => ({

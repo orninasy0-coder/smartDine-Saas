@@ -35,7 +35,7 @@ export default function Login() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const response = await login(data);
-      authLogin(response.token, response.user);
+      authLogin(response.token, response.refreshToken, response.user);
       navigate('/dashboard');
     } catch (err) {
       // Error is already handled by useLogin hook and displayed in the UI

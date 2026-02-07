@@ -31,7 +31,7 @@ const mockDish: Dish = {
   price: 15.99,
   category: 'Main Course',
   imageUrl: 'https://example.com/dish.jpg',
-  modelUrl: null,
+  modelUrl: undefined,
   ingredients: ['Ingredient 1', 'Ingredient 2', 'Ingredient 3'],
   allergens: ['Nuts', 'Dairy'],
   isAvailable: true,
@@ -203,7 +203,7 @@ describe('DishDetail Page', () => {
   });
 
   it('should display placeholder when no image is available', async () => {
-    const dishWithoutImage = { ...mockDish, imageUrl: undefined };
+    const dishWithoutImage = { ...mockDish, imageUrl: '' };
     vi.mocked(useDishHook.useDish).mockReturnValue({
       data: dishWithoutImage,
       isLoading: false,

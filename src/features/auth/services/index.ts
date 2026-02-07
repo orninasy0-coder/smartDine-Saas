@@ -3,6 +3,7 @@
  */
 
 import { apiClient } from '@/services/api/client';
+import type { User } from '@/utils/types';
 import type {
   LoginCredentials,
   RegisterData,
@@ -57,7 +58,7 @@ export const authService = {
   /**
    * Get current user
    */
-  getCurrentUser: async () => {
-    return apiClient.get('/auth/me');
+  getCurrentUser: async (): Promise<User> => {
+    return apiClient.get<User>('/auth/me');
   },
 };

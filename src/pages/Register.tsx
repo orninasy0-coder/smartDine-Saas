@@ -52,7 +52,7 @@ export default function Register() {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       const response = await registerUser(data);
-      authLogin(response.token, response.user);
+      authLogin(response.token, response.refreshToken, response.user);
       navigate('/dashboard');
     } catch (err) {
       // Error is already handled by useRegister hook

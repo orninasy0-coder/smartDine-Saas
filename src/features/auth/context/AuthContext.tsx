@@ -2,7 +2,8 @@
  * Auth Context - Provides authentication state globally
  */
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { tokenService } from '@/services/token';
 import { authService } from '../services';
 import type { User } from '@/utils/types';
@@ -41,7 +42,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           setIsAuthenticated(true);
         } catch (error) {
           // Token is invalid or expired, try to refresh
-          console.error('Failed to fetch user data:', error);
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          console.error('Failed to fetch user data:', errorMessage);
           
           if (tokenService.hasValidRefreshToken()) {
             try {
@@ -50,7 +52,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
               setUser(response.user);
               setIsAuthenticated(true);
             } catch (refreshError) {
-              console.error('Token refresh failed:', refreshError);
+              const errorMessage = refreshError instanceof Error ? refreshError.message : 'Unknown error';
+              console.error('Token refresh failed:', errorMessage);
               tokenService.clearTokens();
               setUser(null);
               setIsAuthenticated(false);
@@ -79,7 +82,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       await authService.logout();
     } catch (error) {
-      console.error('Logout error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Logout error:', errorMessage);
     } finally {
       tokenService.clearTokens();
       setUser(null);
@@ -94,7 +98,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(response.user);
       setIsAuthenticated(true);
     } catch (error) {
-      console.error('Token refresh failed:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Token refresh failed:', errorMessage);
       await logout();
       throw error;
     }
