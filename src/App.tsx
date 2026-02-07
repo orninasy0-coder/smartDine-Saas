@@ -17,6 +17,9 @@ import { LayoutDemo } from './pages/LayoutDemo';
 import { ComponentShowcase } from './design-system';
 import PublicHeaderDemo from './pages/PublicHeaderDemo';
 import UserGuide from './pages/UserGuide';
+import { MenuBrowse } from './pages/MenuBrowse';
+import { DishDetail } from './pages/DishDetail';
+import { Cart } from './pages/Cart';
 
 function App() {
   return (
@@ -32,6 +35,11 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+          
+          {/* Menu Routes */}
+          <Route path="/:restaurantId/menu" element={<MenuBrowse />} />
+          <Route path="/:restaurantId/menu/dish/:dishId" element={<DishDetail />} />
+          <Route path="/:restaurantId/cart" element={<Cart />} />
           
           {/* Protected Routes */}
           <Route

@@ -169,22 +169,22 @@
 
 ### 5. قائمة QR الرقمية (QR Menu Module)
 
-- [ ] 5.1 صفحة تصفح القائمة
-  - [ ] 5.1.1 Menu Grid Component
-  - [ ] 5.1.2 Dish Card Component
-  - [ ] 5.1.3 Category Filter Component
-  - [ ] 5.1.4 Search Bar Component
-- [ ] 5.2 صفحة تفاصيل الطبق
-  - [ ] 5.2.1 عرض معلومات الطبق الكاملة
-  - [ ] 5.2.2 Image Gallery
-  - [ ] 5.2.3 Quantity Selector
-  - [ ] 5.2.4 Add to Cart Button
-- [ ] 5.3 Cart Sidebar Component
-  - [ ] 5.3.1 عرض العناصر المحددة
-  - [ ] 5.3.2 تحديث الكميات
-  - [ ] 5.3.3 حذف العناصر
-  - [ ] 5.3.4 حساب الإجمالي
-- [ ] 5.4 صفحة السلة (Cart Page)
+- [x] 5.1 صفحة تصفح القائمة
+  - [x] 5.1.1 Menu Grid Component
+  - [x] 5.1.2 Dish Card Component
+  - [x] 5.1.3 Category Filter Component
+  - [x] 5.1.4 Search Bar Component
+- [x] 5.2 صفحة تفاصيل الطبق
+  - [x] 5.2.1 عرض معلومات الطبق الكاملة
+  - [x] 5.2.2 Image Gallery
+  - [x] 5.2.3 Quantity Selector
+  - [x] 5.2.4 Add to Cart Button
+- [x] 5.3 Cart Sidebar Component
+  - [x] 5.3.1 عرض العناصر المحددة
+  - [x] 5.3.2 تحديث الكميات
+  - [x] 5.3.3 حذف العناصر
+  - [x] 5.3.4 حساب الإجمالي
+- [x] 5.4 صفحة السلة (Cart Page)
 - [ ] 5.5 صفحة تأكيد الطلب
 - [ ] 5.6 Order Tracker Component
 - [ ] 5.7 إدارة حالة السلة (Cart State Management)

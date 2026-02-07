@@ -99,7 +99,7 @@ export function HeroSection() {
           >
             {/* Floating Cards */}
             <div className="relative w-full h-[600px]">
-              {/* QR Menu Card */}
+              {/* QR Menu Card - Glass Morphism */}
               <motion.div
                 animate={{
                   y: [0, -20, 0],
@@ -110,7 +110,7 @@ export function HeroSection() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="absolute top-0 left-0 w-64 p-6 bg-card border border-border rounded-2xl shadow-2xl"
+                className="absolute top-0 left-0 w-64 p-6 bg-background/60 backdrop-blur-md border border-border/30 rounded-2xl shadow-xl"
               >
                 <QrCode className="w-12 h-12 text-primary mb-4" />
                 <h3 className="font-semibold text-lg mb-2">QR Menu</h3>
@@ -119,7 +119,7 @@ export function HeroSection() {
                 </p>
               </motion.div>
 
-              {/* AI Assistant Card */}
+              {/* AI Assistant Card - Glass Morphism */}
               <motion.div
                 animate={{
                   y: [0, 20, 0],
@@ -130,7 +130,7 @@ export function HeroSection() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="absolute top-32 right-0 w-64 p-6 bg-card border border-border rounded-2xl shadow-2xl"
+                className="absolute top-32 right-0 w-64 p-6 bg-background/60 backdrop-blur-md border border-border/30 rounded-2xl shadow-xl"
               >
                 <Brain className="w-12 h-12 text-secondary mb-4" />
                 <h3 className="font-semibold text-lg mb-2">AI Assistant</h3>
@@ -139,7 +139,7 @@ export function HeroSection() {
                 </p>
               </motion.div>
 
-              {/* AR Viewer Card */}
+              {/* AR Viewer Card - Glass Morphism */}
               <motion.div
                 animate={{
                   y: [0, -15, 0],
@@ -150,7 +150,7 @@ export function HeroSection() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="absolute bottom-0 left-12 w-64 p-6 bg-card border border-border rounded-2xl shadow-2xl"
+                className="absolute bottom-0 left-12 w-64 p-6 bg-background/60 backdrop-blur-md border border-border/30 rounded-2xl shadow-xl"
               >
                 <Sparkles className="w-12 h-12 text-primary mb-4" />
                 <h3 className="font-semibold text-lg mb-2">AR 3D Menu</h3>

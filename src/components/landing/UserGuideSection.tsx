@@ -95,7 +95,7 @@ export function UserGuideSection() {
             className="relative hidden lg:block"
           >
             <div className="relative w-full h-[500px]">
-              {/* Getting Started Card */}
+              {/* Getting Started Card - Glass Morphism */}
               <motion.div
                 animate={{
                   y: [0, -20, 0],
@@ -106,7 +106,7 @@ export function UserGuideSection() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="absolute top-0 left-0 w-64 p-6 bg-card border border-border rounded-2xl shadow-2xl"
+                className="absolute top-0 left-0 w-64 p-6 bg-background/60 backdrop-blur-md border border-border/30 rounded-2xl shadow-xl"
               >
                 <Rocket className="w-12 h-12 text-primary mb-4" />
                 <h3 className="font-semibold text-lg mb-2">Getting Started</h3>
@@ -115,7 +115,7 @@ export function UserGuideSection() {
                 </p>
               </motion.div>
 
-              {/* User Scenarios Card */}
+              {/* User Scenarios Card - Glass Morphism */}
               <motion.div
                 animate={{
                   y: [0, 20, 0],
@@ -126,7 +126,7 @@ export function UserGuideSection() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="absolute top-32 right-0 w-64 p-6 bg-card border border-border rounded-2xl shadow-2xl"
+                className="absolute top-32 right-0 w-64 p-6 bg-background/60 backdrop-blur-md border border-border/30 rounded-2xl shadow-xl"
               >
                 <Users className="w-12 h-12 text-secondary mb-4" />
                 <h3 className="font-semibold text-lg mb-2">User Scenarios</h3>
@@ -135,7 +135,7 @@ export function UserGuideSection() {
                 </p>
               </motion.div>
 
-              {/* Advanced Tips Card */}
+              {/* Advanced Tips Card - Glass Morphism */}
               <motion.div
                 animate={{
                   y: [0, -15, 0],
@@ -146,7 +146,7 @@ export function UserGuideSection() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="absolute bottom-0 left-12 w-64 p-6 bg-card border border-border rounded-2xl shadow-2xl"
+                className="absolute bottom-0 left-12 w-64 p-6 bg-background/60 backdrop-blur-md border border-border/30 rounded-2xl shadow-xl"
               >
                 <Zap className="w-12 h-12 text-primary mb-4" />
                 <h3 className="font-semibold text-lg mb-2">Pro Tips</h3>
