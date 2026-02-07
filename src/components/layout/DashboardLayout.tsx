@@ -8,16 +8,21 @@ import { Sidebar } from './Sidebar';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
-  sidebar?: React.ReactNode;
+  role?: 'owner' | 'kitchen' | 'delivery' | 'admin';
+  showSidebar?: boolean;
 }
 
-export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, sidebar }) => {
+export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
+  children,
+  role = 'owner',
+  showSidebar = true,
+}) => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header variant="authenticated" />
       <div className="flex flex-1">
-        {sidebar && <Sidebar>{sidebar}</Sidebar>}
-        <main className="flex-1 p-6 bg-gray-50 dark:bg-navy-950">{children}</main>
+        {showSidebar && <Sidebar role={role} />}
+        <main className="flex-1 p-6 bg-muted/30">{children}</main>
       </div>
     </div>
   );

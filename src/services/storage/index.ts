@@ -71,7 +71,35 @@ class StorageService {
    */
   removeAuthToken(): void {
     localStorage.removeItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN);
+  }
+
+  /**
+   * Gets refresh token
+   */
+  getRefreshToken(): string | null {
+    return localStorage.getItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN);
+  }
+
+  /**
+   * Sets refresh token
+   */
+  setRefreshToken(token: string): void {
+    localStorage.setItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN, token);
+  }
+
+  /**
+   * Removes refresh token
+   */
+  removeRefreshToken(): void {
     localStorage.removeItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN);
+  }
+
+  /**
+   * Removes all auth-related tokens
+   */
+  clearAuthTokens(): void {
+    this.removeAuthToken();
+    this.removeRefreshToken();
   }
 
   /**

@@ -3,32 +3,120 @@
  */
 
 import { API_BASE_URL } from '@/utils/constants';
+import { tokenService } from '../token';
 import type { ApiResponse } from '@/utils/types';
 
 export class ApiError extends Error {
-  constructor(
-    public code: string,
-    message: string,
-    public details?: unknown
-  ) {
+  code: string;
+  details?: unknown;
+
+  constructor(code: string, message: string, details?: unknown) {
     super(message);
     this.name = 'ApiError';
+    this.code = code;
+    this.details = details;
   }
 }
 
 interface RequestConfig extends RequestInit {
   params?: Record<string, unknown>;
+  skipAuth?: boolean; // Skip authentication for public endpoints
 }
 
 class ApiClient {
   private baseUrl: string;
+  private isRefreshing = false;
+  private refreshPromise: Promise<string> | null = null;
 
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
   }
 
   private getAuthToken(): string | null {
-    return localStorage.getItem('auth_token');
+    return tokenService.getAuthToken();
+  }
+
+  /**
+   * Refreshes the auth token using the refresh token
+   */
+  private async refreshAuthToken(): Promise<string> {
+    // If already refreshing, return the existing promise
+    if (this.isRefreshing && this.refreshPromise) {
+      return this.refreshPromise;
+    }
+
+    this.isRefreshing = true;
+    this.refreshPromise = (async () => {
+      try {
+        const refreshToken = tokenService.getRefreshToken();
+        if (!refreshToken) {
+          throw new ApiError('NO_REFRESH_TOKEN', 'No refresh token available');
+        }
+
+        const response = await fetch(`${this.baseUrl}/auth/refresh`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        });
+
+        const data: ApiResponse<{ token: string; refreshToken: string }> = await response.json();
+
+        if (!response.ok || data.status === 'error') {
+          throw new ApiError(
+            data.error?.code || 'REFRESH_FAILED',
+            data.error?.message || 'Failed to refresh token'
+          );
+        }
+
+        const { token, refreshToken: newRefreshToken } = data.data as {
+          token: string;
+          refreshToken: string;
+        };
+
+        // Store new tokens
+        tokenService.setTokens(token, newRefreshToken);
+
+        return token;
+      } finally {
+        this.isRefreshing = false;
+        this.refreshPromise = null;
+      }
+    })();
+
+    return this.refreshPromise;
+  }
+
+  /**
+   * Checks if token needs refresh and refreshes if necessary
+   */
+  private async ensureValidToken(): Promise<string | null> {
+    const token = this.getAuthToken();
+
+    if (!token) {
+      return null;
+    }
+
+    // If token is expired, try to refresh
+    if (tokenService.isTokenExpired(token)) {
+      try {
+        return await this.refreshAuthToken();
+      } catch (error) {
+        console.error('Token refresh failed:', error);
+        tokenService.clearTokens();
+        return null;
+      }
+    }
+
+    // If token expires soon, refresh in background
+    if (tokenService.shouldRefreshToken()) {
+      this.refreshAuthToken().catch((error) => {
+        console.error('Background token refresh failed:', error);
+      });
+    }
+
+    return token;
   }
 
   private buildUrl(endpoint: string, params?: Record<string, unknown>): string {
@@ -61,7 +149,7 @@ class ApiClient {
 
   async get<T>(endpoint: string, config?: RequestConfig): Promise<T> {
     const url = this.buildUrl(endpoint, config?.params);
-    const token = this.getAuthToken();
+    const token = config?.skipAuth ? null : await this.ensureValidToken();
 
     const response = await fetch(url, {
       method: 'GET',
@@ -78,7 +166,7 @@ class ApiClient {
 
   async post<T>(endpoint: string, body?: unknown, config?: RequestConfig): Promise<T> {
     const url = this.buildUrl(endpoint, config?.params);
-    const token = this.getAuthToken();
+    const token = config?.skipAuth ? null : await this.ensureValidToken();
 
     const response = await fetch(url, {
       method: 'POST',
@@ -96,7 +184,7 @@ class ApiClient {
 
   async put<T>(endpoint: string, body?: unknown, config?: RequestConfig): Promise<T> {
     const url = this.buildUrl(endpoint, config?.params);
-    const token = this.getAuthToken();
+    const token = config?.skipAuth ? null : await this.ensureValidToken();
 
     const response = await fetch(url, {
       method: 'PUT',
@@ -114,7 +202,7 @@ class ApiClient {
 
   async patch<T>(endpoint: string, body?: unknown, config?: RequestConfig): Promise<T> {
     const url = this.buildUrl(endpoint, config?.params);
-    const token = this.getAuthToken();
+    const token = config?.skipAuth ? null : await this.ensureValidToken();
 
     const response = await fetch(url, {
       method: 'PATCH',
@@ -132,7 +220,7 @@ class ApiClient {
 
   async delete<T>(endpoint: string, config?: RequestConfig): Promise<T> {
     const url = this.buildUrl(endpoint, config?.params);
-    const token = this.getAuthToken();
+    const token = config?.skipAuth ? null : await this.ensureValidToken();
 
     const response = await fetch(url, {
       method: 'DELETE',
@@ -149,7 +237,7 @@ class ApiClient {
 
   async upload<T>(endpoint: string, file: File, config?: RequestConfig): Promise<T> {
     const url = this.buildUrl(endpoint, config?.params);
-    const token = this.getAuthToken();
+    const token = config?.skipAuth ? null : await this.ensureValidToken();
 
     const formData = new FormData();
     formData.append('file', file);

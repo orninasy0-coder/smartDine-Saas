@@ -631,23 +631,27 @@ SmartDine is a comprehensive SaaS platform designed to digitize restaurant opera
 ## Engineering Notes
 
 ### Development Approach
+
 - Frontend-first development is mandatory to validate UX early
 - Backend APIs should be designed after UI flows stabilize
 - Infrastructure scaling should follow functional completion
 - Mock APIs should precede backend implementation
 
 ### Performance Considerations
+
 - AR assets must remain optimized for mobile devices (max 10MB per model)
 - Media loading must use CDN and lazy loading strategies
 - API response time targets should remain under defined SLA (2 seconds for menu load, 1 second for order submission)
 
 ### AI Integration Guidelines
+
 - AI outputs must be monitored for accuracy and appropriateness
 - Sensitive data must never be exposed to AI models
 - AI features should remain optional per tenant with ability to disable
 - Monitor AI and AR performance impact continuously
 
 ### SaaS Operational Guidelines
+
 - Multi-tenant isolation must remain strict at database and application levels
 - Monitoring and logging must be centralized for operational visibility
 - Billing workflows must remain resilient with retry mechanisms and grace periods
@@ -655,6 +659,7 @@ SmartDine is a comprehensive SaaS platform designed to digitize restaurant opera
 - Analytics accuracy impacts business decisions
 
 ### Product Stability Guidelines
+
 - Maintain strict tenant isolation at all layers
 - Avoid feature overloading before stable MVP validation
 - Centralized monitoring is essential for operational maturity
@@ -668,6 +673,7 @@ SmartDine is a comprehensive SaaS platform designed to digitize restaurant opera
 3. **Infrastructure and Scaling Third**: Optimize performance, security, and scalability
 
 **Rationale:**
+
 - Validate UX and product flow early
 - Enable faster prototyping and user feedback
 - Reduce backend rework by finalizing UI requirements first

@@ -1,6 +1,6 @@
 /**
  * State Management Example Component
- * 
+ *
  * Demonstrates the three-tier state management strategy:
  * 1. Local State (useState) - for component-specific UI
  * 2. Global State (Zustand) - for shared application state
@@ -18,7 +18,7 @@ import { Card } from '@/components/ui/card';
 const mockMenuService = {
   getMenu: async (_restaurantId: string) => {
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return {
       dishes: [
         { id: '1', name: 'Pizza Margherita', price: 12.99, available: true },
@@ -28,7 +28,7 @@ const mockMenuService = {
     };
   },
   updateDish: async (dishId: string, data: Record<string, unknown>) => {
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     return { id: dishId, ...data };
   },
 };
@@ -37,37 +37,41 @@ export const StateManagementExample = () => {
   // ============================================
   // 1. LOCAL STATE - Component-specific UI state
   // ============================================
-  
+
   // Modal visibility (only this component cares)
   const [showDetails, setShowDetails] = useState(false);
-  
+
   // Selected dish for details modal
   const [selectedDish, setSelectedDish] = useState<string | null>(null);
-  
+
   // Search input (temporary, not shared)
   const [searchQuery, setSearchQuery] = useState('');
 
   // ============================================
   // 2. GLOBAL STATE - Shared across components
   // ============================================
-  
+
   // Authentication state (shared across entire app)
   const { user, isAuthenticated } = useAuthStore();
-  
+
   // UI preferences (shared across app)
   const { theme, addNotification } = useUIStore();
-  
+
   // Shopping cart (shared across app)
   const { addItem, items, getTotal } = useCartStore();
 
   // ============================================
   // 3. SERVER STATE - Data from API
   // ============================================
-  
+
   const restaurantId = 'restaurant-123';
-  
+
   // Fetch menu data from server
-  const { data: menuData, isLoading, error } = useQuery({
+  const {
+    data: menuData,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: queryKeys.menu.restaurant(restaurantId),
     queryFn: () => mockMenuService.getMenu(restaurantId),
     enabled: !!restaurantId,
@@ -80,10 +84,10 @@ export const StateManagementExample = () => {
       mockMenuService.updateDish(dishId, data),
     onSuccess: () => {
       // Invalidate and refetch menu
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.menu.restaurant(restaurantId) 
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.menu.restaurant(restaurantId),
       });
-      
+
       // Show success notification (global state)
       addNotification({
         type: 'success',
@@ -173,57 +177,48 @@ export const StateManagementExample = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="border rounded px-3 py-2 w-full"
         />
-        <p className="text-sm text-gray-500 mt-1">
-          Local State: Search query = "{searchQuery}"
-        </p>
+        <p className="text-sm text-gray-500 mt-1">Local State: Search query = "{searchQuery}"</p>
       </div>
 
       {/* Server state: Menu dishes */}
       <div className="space-y-4">
         <h2 className="font-semibold">Server State (React Query)</h2>
-        {filteredDishes?.map((dish: {
-          id: string;
-          name: string;
-          price: number;
-          available: boolean;
-        }) => (
-          <Card key={dish.id} className="p-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h3 className="font-medium">{dish.name}</h3>
-                <p className="text-sm text-gray-600">${dish.price}</p>
-                <p className="text-xs">
-                  Status: {dish.available ? '✅ Available' : '❌ Unavailable'}
-                </p>
-              </div>
-              <div className="space-x-2">
-                <Button
-                  size="sm"
-                  onClick={() => handleAddToCart(dish)}
-                  disabled={!dish.available}
-                >
-                  Add to Cart
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleShowDetails(dish.id)}
-                >
-                  Details
-                </Button>
-                {user?.role === 'owner' && (
+        {filteredDishes?.map(
+          (dish: { id: string; name: string; price: number; available: boolean }) => (
+            <Card key={dish.id} className="p-4">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="font-medium">{dish.name}</h3>
+                  <p className="text-sm text-gray-600">${dish.price}</p>
+                  <p className="text-xs">
+                    Status: {dish.available ? '✅ Available' : '❌ Unavailable'}
+                  </p>
+                </div>
+                <div className="space-x-2">
                   <Button
                     size="sm"
-                    variant="secondary"
-                    onClick={() => handleToggleAvailability(dish.id, dish.available)}
+                    onClick={() => handleAddToCart(dish)}
+                    disabled={!dish.available}
                   >
-                    Toggle
+                    Add to Cart
                   </Button>
-                )}
+                  <Button size="sm" variant="outline" onClick={() => handleShowDetails(dish.id)}>
+                    Details
+                  </Button>
+                  {user?.role === 'owner' && (
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      onClick={() => handleToggleAvailability(dish.id, dish.available)}
+                    >
+                      Toggle
+                    </Button>
+                  )}
+                </div>
               </div>
-            </div>
-          </Card>
-        ))}
+            </Card>
+          )
+        )}
       </div>
 
       {/* Local state: Details modal */}
@@ -231,9 +226,7 @@ export const StateManagementExample = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
           <Card className="p-6 max-w-md">
             <h3 className="font-semibold mb-4">Dish Details</h3>
-            <p className="text-sm mb-4">
-              Local State: Selected dish ID = {selectedDish}
-            </p>
+            <p className="text-sm mb-4">Local State: Selected dish ID = {selectedDish}</p>
             <Button onClick={() => setShowDetails(false)}>Close</Button>
           </Card>
         </div>

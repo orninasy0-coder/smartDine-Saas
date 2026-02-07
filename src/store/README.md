@@ -5,15 +5,18 @@ This directory contains all Zustand stores for global state management in SmartD
 ## Available Stores
 
 ### 1. Auth Store (`authStore.ts`)
+
 Manages user authentication state.
 
 **State:**
+
 - `user`: Current user object
 - `token`: JWT authentication token
 - `isAuthenticated`: Boolean authentication status
 - `isLoading`: Loading state for auth operations
 
 **Actions:**
+
 - `login(user, token)`: Log in user
 - `logout()`: Log out user
 - `setUser(user)`: Update user data
@@ -23,9 +26,11 @@ Manages user authentication state.
 **Persistence:** Yes (localStorage via `auth-storage`)
 
 ### 2. UI Store (`uiStore.ts`)
+
 Manages global UI state and preferences.
 
 **State:**
+
 - `theme`: Current theme ('light' | 'dark' | 'system')
 - `language`: Current language ('en' | 'ar')
 - `sidebarOpen`: Main sidebar visibility
@@ -34,6 +39,7 @@ Manages global UI state and preferences.
 - `notifications`: Array of notification objects
 
 **Actions:**
+
 - `setTheme(theme)`: Change theme
 - `setLanguage(language)`: Change language
 - `toggleSidebar()`: Toggle main sidebar
@@ -49,14 +55,17 @@ Manages global UI state and preferences.
 **Persistence:** No (session-only)
 
 ### 3. Cart Store (`cartStore.ts`)
+
 Manages shopping cart state.
 
 **State:**
+
 - `items`: Array of cart items
 - `restaurantId`: Current restaurant ID
 - `tableNumber`: Table number for dine-in
 
 **Actions:**
+
 - `addItem(item, restaurantId)`: Add item to cart
 - `removeItem(dishId)`: Remove item from cart
 - `updateQuantity(dishId, quantity)`: Update item quantity
@@ -71,6 +80,7 @@ Manages shopping cart state.
 ## Usage
 
 ### Basic Usage
+
 ```typescript
 import { useAuthStore, useUIStore, useCartStore } from '@/store';
 
@@ -78,26 +88,28 @@ function MyComponent() {
   const { user, login, logout } = useAuthStore();
   const { theme, setTheme } = useUIStore();
   const { items, addItem } = useCartStore();
-  
+
   // Use state and actions...
 }
 ```
 
 ### Selector Pattern (Recommended for Performance)
+
 ```typescript
 // Only re-renders when user changes
-const user = useAuthStore(state => state.user);
+const user = useAuthStore((state) => state.user);
 
 // Only re-renders when theme changes
-const theme = useUIStore(state => state.theme);
+const theme = useUIStore((state) => state.theme);
 
 // Only re-renders when cart items change
-const items = useCartStore(state => state.items);
+const items = useCartStore((state) => state.items);
 ```
 
 ### Multiple Selectors
+
 ```typescript
-const { user, isAuthenticated } = useAuthStore(state => ({
+const { user, isAuthenticated } = useAuthStore((state) => ({
   user: state.user,
   isAuthenticated: state.isAuthenticated,
 }));
@@ -119,11 +131,11 @@ import { useAuthStore } from '@/store';
 
 test('logs in user', () => {
   const { result } = renderHook(() => useAuthStore());
-  
+
   act(() => {
     result.current.login(mockUser, mockToken);
   });
-  
+
   expect(result.current.isAuthenticated).toBe(true);
 });
 ```

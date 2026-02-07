@@ -25,6 +25,7 @@ Is the data from a server/API?
 ### When to Use
 
 Use local state for:
+
 - Form input values
 - UI toggles (modals, dropdowns, tooltips)
 - Component-specific visibility states
@@ -35,11 +36,13 @@ Use local state for:
 ### Examples
 
 #### Simple Toggle State
+
 ```typescript
 const [isOpen, setIsOpen] = useState(false);
 ```
 
 #### Form State
+
 ```typescript
 const [formData, setFormData] = useState({
   name: '',
@@ -48,11 +51,12 @@ const [formData, setFormData] = useState({
 });
 
 const handleChange = (field: string, value: string) => {
-  setFormData(prev => ({ ...prev, [field]: value }));
+  setFormData((prev) => ({ ...prev, [field]: value }));
 };
 ```
 
 #### Complex State with useReducer
+
 ```typescript
 type State = {
   step: number;
@@ -114,6 +118,7 @@ const [state, setState] = useState(() => {
 ### When to Use
 
 Use Zustand for:
+
 - Authentication state (user, token)
 - UI preferences (theme, language)
 - Shopping cart
@@ -124,6 +129,7 @@ Use Zustand for:
 ### Available Stores
 
 #### Auth Store (`useAuthStore`)
+
 ```typescript
 import { useAuthStore } from '@/store';
 
@@ -143,6 +149,7 @@ if (isAuthenticated) {
 ```
 
 #### UI Store (`useUIStore`)
+
 ```typescript
 import { useUIStore } from '@/store';
 
@@ -173,17 +180,21 @@ addNotification({
 ```
 
 #### Cart Store (`useCartStore`)
+
 ```typescript
 import { useCartStore } from '@/store';
 
 // Add item
 const { addItem } = useCartStore();
-addItem({
-  dishId: '123',
-  name: 'Pizza',
-  price: 15.99,
-  quantity: 1,
-}, restaurantId);
+addItem(
+  {
+    dishId: '123',
+    name: 'Pizza',
+    price: 15.99,
+    quantity: 1,
+  },
+  restaurantId
+);
 
 // Get cart info
 const { items, getTotal, getItemCount } = useCartStore();
@@ -206,18 +217,20 @@ clearCart();
 ### Best Practices
 
 1. **Use selectors** - Only subscribe to what you need
+
 ```typescript
 // Bad - re-renders on any auth state change
 const authStore = useAuthStore();
 
 // Good - only re-renders when user changes
-const user = useAuthStore(state => state.user);
+const user = useAuthStore((state) => state.user);
 ```
 
 2. **Don't store derived state** - Use getters instead
+
 ```typescript
 // Good - computed on demand
-const total = useCartStore(state => state.getTotal());
+const total = useCartStore((state) => state.getTotal());
 ```
 
 3. **Keep actions simple** - Complex logic should be in services
@@ -230,6 +243,7 @@ const total = useCartStore(state => state.getTotal());
 ### When to Use
 
 Use React Query for:
+
 - All API data fetching
 - Caching server responses
 - Background synchronization
@@ -290,10 +304,10 @@ const CreateDishForm = () => {
 const CartSidebar = () => {
   // Global state for visibility
   const { cartSidebarOpen, setCartSidebarOpen } = useUIStore();
-  
+
   // Global state for cart data
   const { items, removeItem } = useCartStore();
-  
+
   // Local state for confirmation dialog
   const [itemToRemove, setItemToRemove] = useState<string | null>(null);
 
@@ -310,7 +324,7 @@ const CartSidebar = () => {
 ```typescript
 const DishCard = ({ dish }: { dish: Dish }) => {
   const updateDish = useUpdateDish(restaurantId);
-  
+
   const handleToggleAvailability = () => {
     updateDish.mutate({
       dishId: dish.id,
@@ -320,8 +334,8 @@ const DishCard = ({ dish }: { dish: Dish }) => {
 
   return (
     <Card>
-      <Switch 
-        checked={dish.available} 
+      <Switch
+        checked={dish.available}
         onCheckedChange={handleToggleAvailability}
       />
     </Card>
@@ -334,6 +348,7 @@ const DishCard = ({ dish }: { dish: Dish }) => {
 ## Common Mistakes to Avoid
 
 ### ❌ Don't: Store server data in Zustand
+
 ```typescript
 // Bad
 const useMenuStore = create((set) => ({
@@ -346,6 +361,7 @@ const useMenuStore = create((set) => ({
 ```
 
 ### ✅ Do: Use React Query for server data
+
 ```typescript
 // Good
 const { data: menu } = useQuery({
@@ -355,6 +371,7 @@ const { data: menu } = useQuery({
 ```
 
 ### ❌ Don't: Lift state unnecessarily
+
 ```typescript
 // Bad - lifting state to parent when not needed
 const Parent = () => {
@@ -364,6 +381,7 @@ const Parent = () => {
 ```
 
 ### ✅ Do: Keep state local when possible
+
 ```typescript
 // Good - state stays in component that uses it
 const Child = () => {
@@ -373,6 +391,7 @@ const Child = () => {
 ```
 
 ### ❌ Don't: Duplicate state
+
 ```typescript
 // Bad - duplicating server state
 const [user, setUser] = useState(null);
@@ -384,6 +403,7 @@ useEffect(() => {
 ```
 
 ### ✅ Do: Use single source of truth
+
 ```typescript
 // Good - use server state directly
 const { data: user } = useQuery(/* ... */);
@@ -394,6 +414,7 @@ const { data: user } = useQuery(/* ... */);
 ## Testing State
 
 ### Local State
+
 ```typescript
 import { render, screen, fireEvent } from '@testing-library/react';
 
@@ -406,23 +427,25 @@ test('toggles modal', () => {
 ```
 
 ### Zustand Store
+
 ```typescript
 import { renderHook, act } from '@testing-library/react';
 import { useAuthStore } from '@/store';
 
 test('logs in user', () => {
   const { result } = renderHook(() => useAuthStore());
-  
+
   act(() => {
     result.current.login(mockUser, mockToken);
   });
-  
+
   expect(result.current.isAuthenticated).toBe(true);
   expect(result.current.user).toEqual(mockUser);
 });
 ```
 
 ### React Query
+
 ```typescript
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -432,13 +455,13 @@ const createTestQueryClient = () => new QueryClient({
 
 test('fetches menu', async () => {
   const queryClient = createTestQueryClient();
-  
+
   render(
     <QueryClientProvider client={queryClient}>
       <MenuComponent />
     </QueryClientProvider>
   );
-  
+
   await waitFor(() => {
     expect(screen.getByText('Pizza')).toBeInTheDocument();
   });
@@ -449,10 +472,10 @@ test('fetches menu', async () => {
 
 ## Summary
 
-| State Type | Tool | Use Case | Persistence |
-|------------|------|----------|-------------|
-| Local | useState/useReducer | Component UI state | No |
-| Global | Zustand | Shared app state | Optional (localStorage) |
-| Server | React Query | API data | Cache (memory) |
+| State Type | Tool                | Use Case           | Persistence             |
+| ---------- | ------------------- | ------------------ | ----------------------- |
+| Local      | useState/useReducer | Component UI state | No                      |
+| Global     | Zustand             | Shared app state   | Optional (localStorage) |
+| Server     | React Query         | API data           | Cache (memory)          |
 
 **Remember**: Choose the simplest solution that works. Start with local state, move to global only when needed, and always use React Query for server data.

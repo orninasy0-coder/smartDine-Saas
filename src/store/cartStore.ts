@@ -34,7 +34,7 @@ type CartStore = CartState & CartActions;
 
 /**
  * Cart Store
- * 
+ *
  * Manages shopping cart state
  * Persisted to localStorage
  */
@@ -58,9 +58,7 @@ export const useCartStore = create<CartStore>()(
           }
 
           // Check if item already exists
-          const existingItemIndex = state.items.findIndex(
-            (i) => i.dishId === item.dishId
-          );
+          const existingItemIndex = state.items.findIndex((i) => i.dishId === item.dishId);
 
           if (existingItemIndex > -1) {
             // Update quantity if item exists
@@ -86,16 +84,12 @@ export const useCartStore = create<CartStore>()(
 
       updateQuantity: (dishId, quantity) =>
         set((state) => ({
-          items: state.items.map((item) =>
-            item.dishId === dishId ? { ...item, quantity } : item
-          ),
+          items: state.items.map((item) => (item.dishId === dishId ? { ...item, quantity } : item)),
         })),
 
       updateNotes: (dishId, notes) =>
         set((state) => ({
-          items: state.items.map((item) =>
-            item.dishId === dishId ? { ...item, notes } : item
-          ),
+          items: state.items.map((item) => (item.dishId === dishId ? { ...item, notes } : item)),
         })),
 
       clearCart: () =>
@@ -112,10 +106,7 @@ export const useCartStore = create<CartStore>()(
 
       getTotal: () => {
         const state = get();
-        return state.items.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0
-        );
+        return state.items.reduce((total, item) => total + item.price * item.quantity, 0);
       },
 
       getItemCount: () => {

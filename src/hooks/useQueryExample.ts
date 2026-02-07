@@ -1,6 +1,6 @@
 /**
  * React Query Usage Examples
- * 
+ *
  * This file demonstrates proper React Query patterns
  * Use these as templates for creating feature-specific hooks
  */
@@ -40,8 +40,8 @@ export const useCreateDishExample = (restaurantId: string) => {
     },
     onSuccess: () => {
       // Invalidate menu queries to refetch fresh data
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.menu.restaurant(restaurantId) 
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.menu.restaurant(restaurantId),
       });
     },
   });
@@ -53,49 +53,38 @@ export const useUpdateDishExample = (restaurantId: string) => {
 
   return useMutation({
     mutationFn: async ({ dishId, data }: { dishId: string; data: unknown }) => {
-      const response = await fetch(
-        `/api/v1/restaurants/${restaurantId}/menu/dishes/${dishId}`,
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`/api/v1/restaurants/${restaurantId}/menu/dishes/${dishId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
       if (!response.ok) throw new Error('Failed to update dish');
       return response.json();
     },
     onMutate: async ({ dishId, data }) => {
       // Cancel outgoing refetches
-      await queryClient.cancelQueries({ 
-        queryKey: queryKeys.menu.dish(restaurantId, dishId) 
+      await queryClient.cancelQueries({
+        queryKey: queryKeys.menu.dish(restaurantId, dishId),
       });
 
       // Snapshot previous value
-      const previousDish = queryClient.getQueryData(
-        queryKeys.menu.dish(restaurantId, dishId)
-      );
+      const previousDish = queryClient.getQueryData(queryKeys.menu.dish(restaurantId, dishId));
 
       // Optimistically update
-      queryClient.setQueryData(
-        queryKeys.menu.dish(restaurantId, dishId),
-        data
-      );
+      queryClient.setQueryData(queryKeys.menu.dish(restaurantId, dishId), data);
 
       return { previousDish };
     },
     onError: (_err, { dishId }, context) => {
       // Rollback on error
       if (context?.previousDish) {
-        queryClient.setQueryData(
-          queryKeys.menu.dish(restaurantId, dishId),
-          context.previousDish
-        );
+        queryClient.setQueryData(queryKeys.menu.dish(restaurantId, dishId), context.previousDish);
       }
     },
     onSettled: () => {
       // Refetch after error or success
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.menu.restaurant(restaurantId) 
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.menu.restaurant(restaurantId),
       });
     },
   });
@@ -106,9 +95,7 @@ export const useOrdersExample = (page: number, pageSize: number) => {
   return useQuery({
     queryKey: queryKeys.orders.list({ page, pageSize }),
     queryFn: async () => {
-      const response = await fetch(
-        `/api/v1/orders?page=${page}&pageSize=${pageSize}`
-      );
+      const response = await fetch(`/api/v1/orders?page=${page}&pageSize=${pageSize}`);
       if (!response.ok) throw new Error('Failed to fetch orders');
       return response.json();
     },
@@ -121,9 +108,7 @@ export const useDishDetailsExample = (restaurantId: string, dishId: string | nul
   return useQuery({
     queryKey: queryKeys.menu.dish(restaurantId, dishId!),
     queryFn: async () => {
-      const response = await fetch(
-        `/api/v1/restaurants/${restaurantId}/menu/dishes/${dishId}`
-      );
+      const response = await fetch(`/api/v1/restaurants/${restaurantId}/menu/dishes/${dishId}`);
       if (!response.ok) throw new Error('Failed to fetch dish');
       return response.json();
     },
@@ -139,9 +124,7 @@ export const usePrefetchDish = () => {
     queryClient.prefetchQuery({
       queryKey: queryKeys.menu.dish(restaurantId, dishId),
       queryFn: async () => {
-        const response = await fetch(
-          `/api/v1/restaurants/${restaurantId}/menu/dishes/${dishId}`
-        );
+        const response = await fetch(`/api/v1/restaurants/${restaurantId}/menu/dishes/${dishId}`);
         if (!response.ok) throw new Error('Failed to fetch dish');
         return response.json();
       },

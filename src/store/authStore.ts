@@ -31,7 +31,7 @@ type AuthStore = AuthState & AuthActions;
 
 /**
  * Authentication Store
- * 
+ *
  * Manages user authentication state globally
  * Persisted to localStorage for session persistence
  */

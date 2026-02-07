@@ -37,7 +37,7 @@ type UIStore = UIState & UIActions;
 
 /**
  * UI Store
- * 
+ *
  * Manages global UI state like theme, language, sidebar visibility, etc.
  */
 export const useUIStore = create<UIStore>((set) => ({

@@ -7,6 +7,7 @@ React Query is used for **server state management** in SmartDine. It handles dat
 ## When to Use React Query
 
 Use React Query for:
+
 - Fetching data from APIs
 - Caching server responses
 - Background data synchronization
@@ -20,17 +21,11 @@ Query keys should be structured hierarchically for better cache management:
 
 ```typescript
 // Feature-based structure
-['menu', restaurantId] // All menu data for a restaurant
-['menu', restaurantId, 'dishes'] // All dishes
-['menu', restaurantId, 'dishes', dishId] // Specific dish
-['menu', restaurantId, 'categories'] // All categories
-
-['orders'] // All orders
-['orders', orderId] // Specific order
-['orders', { status: 'pending' }] // Filtered orders
-
-['auth', 'user'] // Current user
-['analytics', restaurantId, { period: 'week' }] // Analytics data
+['menu', restaurantId][('menu', restaurantId, 'dishes')][('menu', restaurantId, 'dishes', dishId)][ // All menu data for a restaurant // All dishes // Specific dish
+  ('menu', restaurantId, 'categories')
+]['orders'][('orders', orderId)][('orders', { status: 'pending' })][('auth', 'user')][ // All categories // All orders // Specific order // Filtered orders // Current user
+  ('analytics', restaurantId, { period: 'week' })
+]; // Analytics data
 ```
 
 ## Custom Hooks Pattern
@@ -85,10 +80,17 @@ export const useUpdateDish = (restaurantId: string) => {
     mutationFn: menuService.updateDish,
     onMutate: async (updatedDish) => {
       // Cancel outgoing refetches
-      await queryClient.cancelQueries({ queryKey: ['menu', restaurantId, 'dishes', updatedDish.id] });
+      await queryClient.cancelQueries({
+        queryKey: ['menu', restaurantId, 'dishes', updatedDish.id],
+      });
 
       // Snapshot previous value
-      const previousDish = queryClient.getQueryData(['menu', restaurantId, 'dishes', updatedDish.id]);
+      const previousDish = queryClient.getQueryData([
+        'menu',
+        restaurantId,
+        'dishes',
+        updatedDish.id,
+      ]);
 
       // Optimistically update
       queryClient.setQueryData(['menu', restaurantId, 'dishes', updatedDish.id], updatedDish);
@@ -143,8 +145,7 @@ For infinite scroll:
 export const useInfiniteMenu = (restaurantId: string) => {
   return useInfiniteQuery({
     queryKey: ['menu', restaurantId, 'infinite'],
-    queryFn: ({ pageParam = 0 }) => 
-      menuService.getMenu(restaurantId, { page: pageParam }),
+    queryFn: ({ pageParam = 0 }) => menuService.getMenu(restaurantId, { page: pageParam }),
     getNextPageParam: (lastPage) => lastPage.nextPage,
   });
 };
@@ -178,9 +179,9 @@ queryClient.invalidateQueries({ queryKey: ['menu'] });
 queryClient.invalidateQueries({ queryKey: ['menu', restaurantId] });
 
 // Invalidate with exact match
-queryClient.invalidateQueries({ 
-  queryKey: ['menu', restaurantId], 
-  exact: true 
+queryClient.invalidateQueries({
+  queryKey: ['menu', restaurantId],
+  exact: true,
 });
 ```
 
@@ -198,6 +199,7 @@ queryClient.invalidateQueries({
 ## Configuration
 
 Global configuration is in `src/lib/queryClient.ts`:
+
 - `staleTime`: 5 minutes (data freshness)
 - `gcTime`: 10 minutes (cache retention)
 - `retry`: 3 attempts with exponential backoff

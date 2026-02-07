@@ -3,10 +3,12 @@
  */
 
 import { useState } from 'react';
+import { useAuthContext } from '../context/AuthContext';
 import { authService } from '../services';
 import type { RegisterData } from '../types';
 
 export const useRegister = () => {
+  const { login: setAuthState } = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,6 +18,10 @@ export const useRegister = () => {
 
     try {
       const response = await authService.register(data);
+      
+      // Update auth context with registration data
+      setAuthState(response.token, response.refreshToken, response.user);
+      
       return response;
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Registration failed';

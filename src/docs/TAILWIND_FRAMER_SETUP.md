@@ -7,45 +7,50 @@ This document describes the Tailwind CSS v4 and Framer Motion setup for the Smar
 ## 📦 Installed Packages
 
 ### Tailwind CSS (v4)
+
 - `tailwindcss` - Core Tailwind CSS framework
 - `@tailwindcss/postcss` - PostCSS plugin for Tailwind v4
 - `postcss` - CSS transformation tool
 - `autoprefixer` - Automatic vendor prefixing
 
 ### Framer Motion
+
 - `framer-motion` - Production-ready animation library for React
 
 ## 🔧 Configuration Files
 
 ### 1. `postcss.config.js`
+
 PostCSS configuration with Tailwind CSS v4 plugin:
+
 ```javascript
 export default {
   plugins: {
     '@tailwindcss/postcss': {},
     autoprefixer: {},
   },
-}
+};
 ```
 
 ### 2. `tailwind.config.js`
+
 Tailwind configuration (v4 uses CSS-based config, but this file is kept for compatibility):
+
 ```javascript
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {},
   },
   plugins: [],
   darkMode: 'class',
-}
+};
 ```
 
 ### 3. `src/index.css`
+
 Main CSS file with Tailwind v4 imports and custom theme:
+
 - Uses `@import "tailwindcss"` (v4 syntax)
 - Custom color palette (primary, secondary)
 - Custom fonts (Inter, Cairo for Arabic)
@@ -56,14 +61,17 @@ Main CSS file with Tailwind v4 imports and custom theme:
 ## 🎨 Custom Theme
 
 ### Colors
+
 - **Primary**: Blue shades (50-950)
 - **Secondary**: Purple/Pink shades (50-950)
 
 ### Fonts
+
 - **Sans**: Inter, system-ui, sans-serif
 - **Arabic**: Cairo, system-ui, sans-serif
 
 ### Animations
+
 - `animate-float`: Floating animation (6s infinite)
 - `animate-fade-in`: Fade in animation (0.5s)
 - `animate-slide-up`: Slide up animation (0.5s)
@@ -72,15 +80,15 @@ Main CSS file with Tailwind v4 imports and custom theme:
 ## 🚀 Usage Examples
 
 ### Tailwind CSS Classes
+
 ```tsx
 <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
-  <h1 className="text-5xl font-bold text-gray-800 dark:text-white">
-    SmartDine
-  </h1>
+  <h1 className="text-5xl font-bold text-gray-800 dark:text-white">SmartDine</h1>
 </div>
 ```
 
 ### Framer Motion Animations
+
 ```tsx
 import { motion } from 'framer-motion';
 
@@ -91,10 +99,11 @@ import { motion } from 'framer-motion';
   whileHover={{ scale: 1.05 }}
 >
   Content
-</motion.div>
+</motion.div>;
 ```
 
 ### Combined Example
+
 See `src/App.tsx` and `src/components/DemoCard.tsx` for complete examples.
 
 ## 🌙 Dark Mode
@@ -114,7 +123,7 @@ document.documentElement.classList.remove('dark');
 RTL (Right-to-Left) support for Arabic is configured. Apply RTL by setting the `dir` attribute:
 
 ```html
-<html dir="rtl">
+<html dir="rtl"></html>
 ```
 
 ## ✨ Features
@@ -131,11 +140,13 @@ RTL (Right-to-Left) support for Arabic is configured. Apply RTL by setting the `
 ## 🧪 Verification
 
 Build the project to verify the setup:
+
 ```bash
 npm run build
 ```
 
 Run the development server:
+
 ```bash
 npm run dev
 ```

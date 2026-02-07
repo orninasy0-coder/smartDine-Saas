@@ -24,6 +24,7 @@
 ## Local State (useState/useReducer)
 
 ### When to Use
+
 - ✅ Form inputs
 - ✅ Modal/dropdown visibility
 - ✅ Temporary UI state
@@ -49,6 +50,7 @@ const [state, dispatch] = useReducer(reducer, initialState);
 ### Available Stores
 
 #### 🔐 Auth Store
+
 ```typescript
 import { useAuthStore } from '@/store';
 
@@ -56,6 +58,7 @@ const { user, isAuthenticated, login, logout } = useAuthStore();
 ```
 
 #### 🎨 UI Store
+
 ```typescript
 import { useUIStore } from '@/store';
 
@@ -66,6 +69,7 @@ const { addNotification } = useUIStore();
 ```
 
 #### 🛒 Cart Store
+
 ```typescript
 import { useCartStore } from '@/store';
 
@@ -73,12 +77,13 @@ const { items, addItem, removeItem, getTotal } = useCartStore();
 ```
 
 ### Selector Pattern (Performance)
+
 ```typescript
 // ❌ Bad - re-renders on any change
 const store = useAuthStore();
 
 // ✅ Good - only re-renders when user changes
-const user = useAuthStore(state => state.user);
+const user = useAuthStore((state) => state.user);
 ```
 
 ---
@@ -86,22 +91,24 @@ const user = useAuthStore(state => state.user);
 ## Server State (React Query)
 
 ### Query Keys
+
 ```typescript
 import { queryKeys } from '@/lib/queryKeys';
 
 // Menu
-queryKeys.menu.restaurant(restaurantId)
-queryKeys.menu.dish(restaurantId, dishId)
+queryKeys.menu.restaurant(restaurantId);
+queryKeys.menu.dish(restaurantId, dishId);
 
 // Orders
-queryKeys.orders.detail(orderId)
-queryKeys.orders.byStatus('pending')
+queryKeys.orders.detail(orderId);
+queryKeys.orders.byStatus('pending');
 
 // Analytics
-queryKeys.analytics.revenue(restaurantId, 'week')
+queryKeys.analytics.revenue(restaurantId, 'week');
 ```
 
 ### Basic Query
+
 ```typescript
 const { data, isLoading, error } = useQuery({
   queryKey: queryKeys.menu.restaurant(restaurantId),
@@ -111,12 +118,13 @@ const { data, isLoading, error } = useQuery({
 ```
 
 ### Mutation
+
 ```typescript
 const mutation = useMutation({
   mutationFn: menuService.createDish,
   onSuccess: () => {
-    queryClient.invalidateQueries({ 
-      queryKey: queryKeys.menu.restaurant(restaurantId) 
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.menu.restaurant(restaurantId),
     });
   },
 });
@@ -125,6 +133,7 @@ mutation.mutate(dishData);
 ```
 
 ### Optimistic Update
+
 ```typescript
 const mutation = useMutation({
   mutationFn: updateDish,
@@ -145,9 +154,12 @@ const mutation = useMutation({
 ## Common Patterns
 
 ### Pattern 1: Form with Server Mutation
+
 ```typescript
 const [formData, setFormData] = useState(initialData); // Local
-const mutation = useMutation({ /* ... */ }); // Server
+const mutation = useMutation({
+  /* ... */
+}); // Server
 
 const handleSubmit = () => {
   mutation.mutate(formData);
@@ -155,14 +167,18 @@ const handleSubmit = () => {
 ```
 
 ### Pattern 2: Global UI + Local Component State
+
 ```typescript
 const { cartOpen, setCartOpen } = useUIStore(); // Global
 const [selectedItem, setSelectedItem] = useState(null); // Local
 ```
 
 ### Pattern 3: Server Data + Global Cart
+
 ```typescript
-const { data: dish } = useQuery({ /* ... */ }); // Server
+const { data: dish } = useQuery({
+  /* ... */
+}); // Server
 const { addItem } = useCartStore(); // Global
 
 const handleAddToCart = () => {
@@ -175,15 +191,19 @@ const handleAddToCart = () => {
 ## Common Mistakes
 
 ### ❌ Don't Store Server Data in Zustand
+
 ```typescript
 // Bad
 const useMenuStore = create((set) => ({
   menu: null,
-  fetchMenu: async () => { /* ... */ },
+  fetchMenu: async () => {
+    /* ... */
+  },
 }));
 ```
 
 ### ✅ Use React Query Instead
+
 ```typescript
 // Good
 const { data: menu } = useQuery({
@@ -193,6 +213,7 @@ const { data: menu } = useQuery({
 ```
 
 ### ❌ Don't Duplicate State
+
 ```typescript
 // Bad
 const [user, setUser] = useState(null);
@@ -201,6 +222,7 @@ useEffect(() => setUser(data), [data]);
 ```
 
 ### ✅ Use Single Source
+
 ```typescript
 // Good
 const { data: user } = useQuery(/* ... */);
@@ -248,17 +270,20 @@ src/
 ## Testing
 
 ### Local State
+
 ```typescript
 import { render, fireEvent } from '@testing-library/react';
 ```
 
 ### Zustand
+
 ```typescript
 import { renderHook, act } from '@testing-library/react';
 import { useAuthStore } from '@/store';
 ```
 
 ### React Query
+
 ```typescript
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -271,10 +296,10 @@ const testClient = new QueryClient({
 
 ## Summary Table
 
-| Type | Tool | Persistence | Use Case |
-|------|------|-------------|----------|
-| Local | useState | No | Component UI |
-| Global | Zustand | Optional | Shared state |
-| Server | React Query | Cache | API data |
+| Type   | Tool        | Persistence | Use Case     |
+| ------ | ----------- | ----------- | ------------ |
+| Local  | useState    | No          | Component UI |
+| Global | Zustand     | Optional    | Shared state |
+| Server | React Query | Cache       | API data     |
 
 **Rule of Thumb**: Start simple (local state), escalate only when needed.

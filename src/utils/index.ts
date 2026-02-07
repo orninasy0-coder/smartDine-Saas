@@ -7,4 +7,5 @@ export * from './types';
 export * from './validation';
 export * from './formatting';
 export * from './helpers';
-export * from './env';
+// Export env as a namespace to avoid conflicts
+export { env, isDevelopment, isProduction, isTest, validateEnv, isFeatureEnabled } from './env';

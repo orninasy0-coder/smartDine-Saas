@@ -10,37 +10,37 @@ and loyalty - Advanced analytics and feedback surveys
 Goal: - Improve customer experience - Increase restaurant revenue -
 Automate operational workflows
 
-------------------------------------------------------------------------
+---
 
 ## 🎨 2. Design System
 
 ### 🌙 Dark Mode (Primary)
 
--   Navy: #0B1E3A
--   Navy Soft: #101F3F
--   White Text: #FFFFFF
--   Borders: #1F2E4D
--   Hover: #162A52
+- Navy: #0B1E3A
+- Navy Soft: #101F3F
+- White Text: #FFFFFF
+- Borders: #1F2E4D
+- Hover: #162A52
 
 ### ☀️ Light Mode
 
--   Background: #FFFFFF
--   Primary Navy Text: #0B1E3A
--   Soft Background: #F6F8FC
--   Borders: #E5E7EB
+- Background: #FFFFFF
+- Primary Navy Text: #0B1E3A
+- Soft Background: #F6F8FC
+- Borders: #E5E7EB
 
 Dark mode is the default for restaurant environments.
 
-------------------------------------------------------------------------
+---
 
 ## 🖼️ 3. Placeholder Images, Icons & Motion
 
 ### Placeholder Images
 
--   Consistent HD food stock images
--   Dashboard mockups
--   Restaurant technology visuals
--   AR food preview mockups
+- Consistent HD food stock images
+- Dashboard mockups
+- Restaurant technology visuals
+- AR food preview mockups
 
 ### Icons
 
@@ -56,14 +56,14 @@ shapes - Soft glowing icons
 
 Purpose: - Modern SaaS feel - Visual indication of AI and automation
 
-------------------------------------------------------------------------
+---
 
 ## 🧭 4. Header Specification
 
 ### Left Section
 
--   Logo
--   Platform name
+- Logo
+- Platform name
 
 ### Navigation
 
@@ -73,14 +73,14 @@ Authenticated: - Dashboard - Orders - Menu - Analytics - Settings
 
 ### Right Actions
 
--   Dark/Light toggle
--   Language switch
--   Notifications bell
--   Profile dropdown
+- Dark/Light toggle
+- Language switch
+- Notifications bell
+- Profile dropdown
 
 Sticky header with blur and smooth animation.
 
-------------------------------------------------------------------------
+---
 
 ## 🧰 5. Frontend Technology Stack
 
@@ -92,67 +92,67 @@ Visualization: - Three.js (AR menu) - Recharts
 
 Assets: - Icon library - Placeholder image system
 
-------------------------------------------------------------------------
+---
 
 ## 📱 6. Frontend Pages
 
 ### Public Pages
 
--   Landing page
--   Pricing page
--   Demo page
--   Contact page
+- Landing page
+- Pricing page
+- Demo page
+- Contact page
 
 ### Authentication
 
--   Login
--   Register restaurant
--   Password reset
--   2FA verification
+- Login
+- Register restaurant
+- Password reset
+- 2FA verification
 
 ### Customer Experience
 
--   QR menu page
--   AR menu viewer
--   Ordering cart
--   AI assistant chat
--   Feedback survey
--   Subscription plans
+- QR menu page
+- AR menu viewer
+- Ordering cart
+- AI assistant chat
+- Feedback survey
+- Subscription plans
 
-------------------------------------------------------------------------
+---
 
 ## 🧑‍🍳 7. Dashboards
 
 ### Restaurant Owner Dashboard
 
--   Sales overview
--   Live orders
--   Alerts
--   Menu management
--   Analytics
--   Staff roles
--   Subscription management
+- Sales overview
+- Live orders
+- Alerts
+- Menu management
+- Analytics
+- Staff roles
+- Subscription management
 
 ### Kitchen Dashboard
 
--   Incoming orders
--   Status updates
--   Prep timers
+- Incoming orders
+- Status updates
+- Prep timers
 
 ### Delivery Dashboard
 
--   Assigned deliveries
--   Status tracking
--   Driver ratings
+- Assigned deliveries
+- Status tracking
+- Driver ratings
 
 ### Platform Admin Dashboard
 
--   Tenant management
--   Billing
--   Usage analytics
--   Support tickets
+- Tenant management
+- Billing
+- Usage analytics
+- Support tickets
 
-------------------------------------------------------------------------
+---
 
 ## ⚙️ 8. Backend Architecture
 
@@ -165,7 +165,7 @@ Storage: - Cloudflare R2 / AWS S3
 
 AI: - OpenAI API integration
 
-------------------------------------------------------------------------
+---
 
 ## 🗄️ 9. Database Structure
 
@@ -181,21 +181,21 @@ Menu: - Categories - Dishes - Media assets
 
 Analytics: - Sales data - Customer feedback - Behavioral insights
 
-------------------------------------------------------------------------
+---
 
 ## 🤖 10. AI Modules
 
 ### AI Waiter
 
--   Dish recommendations
--   Conversational ordering
+- Dish recommendations
+- Conversational ordering
 
 ### AI Analytics
 
--   Sales predictions
--   Customer segmentation
+- Sales predictions
+- Customer segmentation
 
-------------------------------------------------------------------------
+---
 
 ## 🧊 11. AR Module
 
@@ -203,17 +203,17 @@ Technology: - Three.js - WebAR / WebXR
 
 Features: - 3D dish preview - Interactive rotation - Ingredient overlays
 
-------------------------------------------------------------------------
+---
 
 ## 🔐 12. Security Requirements
 
--   SSL/TLS encryption
--   OAuth2 authentication
--   Role-based access control
--   Daily backups
--   SQL injection protection
+- SSL/TLS encryption
+- OAuth2 authentication
+- Role-based access control
+- Daily backups
+- SQL injection protection
 
-------------------------------------------------------------------------
+---
 
 ## 💰 13. SaaS Monetization Model
 
@@ -223,7 +223,7 @@ Pro Plan: - Analytics - AI assistant
 
 Enterprise Plan: - AR menu - Advanced integrations
 
-------------------------------------------------------------------------
+---
 
 ## 🚀 14. Development Roadmap
 
@@ -233,7 +233,7 @@ Phase 2: - AI assistant - Analytics - Subscriptions
 
 Phase 3: - AR menu - Full SaaS scaling
 
-------------------------------------------------------------------------
+---
 
 ## ⭐ Final Technical Summary
 

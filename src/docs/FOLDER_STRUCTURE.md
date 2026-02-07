@@ -5,6 +5,7 @@ This document describes the complete folder structure for the SmartDine SaaS pla
 ## Overview
 
 The project follows a **feature-based architecture** with clear separation of concerns:
+
 - **Features**: Self-contained modules with their own components, hooks, services, and types
 - **Components**: Shared UI components used across features
 - **Services**: Shared services for API communication and utilities
@@ -139,7 +140,9 @@ src/
 ## Key Principles
 
 ### 1. Feature-Based Organization
+
 Each feature is self-contained with:
+
 - **components/**: Feature-specific UI components
 - **hooks/**: Feature-specific React hooks
 - **services/**: API calls and business logic
@@ -148,21 +151,27 @@ Each feature is self-contained with:
 - **index.ts**: Public API exports
 
 ### 2. Shared Components
+
 Located in `src/components/`:
+
 - **ui/**: shadcn/ui components (managed by CLI)
 - **layout/**: Page structure components
 - **common/**: Generic reusable components
 - **forms/**: Form-related components
 
 ### 3. Services Layer
+
 Located in `src/services/`:
+
 - **api/**: HTTP client configuration
 - **storage/**: Browser storage utilities
 - **websocket/**: Real-time communication (future)
 - **notifications/**: Notification system (future)
 
 ### 4. Utilities
+
 Located in `src/utils/`:
+
 - **constants/**: Application-wide constants
 - **types/**: Shared TypeScript types
 - **validation/**: Input validation functions
@@ -172,6 +181,7 @@ Located in `src/utils/`:
 ## Import Patterns
 
 ### Using Path Aliases
+
 All imports use the `@/` alias for clean imports:
 
 ```typescript
@@ -186,6 +196,7 @@ import { Button } from '../../../components/ui/button';
 ```
 
 ### Feature Exports
+
 Features export their public API through index.ts:
 
 ```typescript
@@ -208,6 +219,7 @@ To add a new feature:
 4. Follow existing patterns
 
 Example:
+
 ```bash
 src/features/ai-assistant/
 ├── components/
@@ -235,6 +247,7 @@ src/features/ai-assistant/
 ## Future Additions
 
 Features to be implemented:
+
 - `ai-assistant/` - AI chat functionality
 - `ar-viewer/` - 3D model visualization
 - `kitchen/` - Kitchen dashboard
@@ -245,5 +258,6 @@ Features to be implemented:
 - `analytics/` - Analytics and reporting
 
 Services to be implemented:
+
 - `websocket/` - Real-time updates
 - `notifications/` - Push notifications

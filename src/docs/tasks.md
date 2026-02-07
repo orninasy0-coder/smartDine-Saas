@@ -30,58 +30,142 @@
 
 ### 2. نظام التصميم والمكونات الأساسية
 
-- [ ] 2.1 إنشاء نظام الألوان (Dark Mode و Light Mode)
-- [ ] 2.2 بناء مكونات UI باستخدام shadcn/ui
-  - [ ] 2.2.1 Button Component (shadcn/ui)
-  - [ ] 2.2.2 Input Component (shadcn/ui)
-  - [ ] 2.2.3 Card Component (shadcn/ui)
-  - [ ] 2.2.4 Dialog/Modal Component (shadcn/ui)
-  - [ ] 2.2.5 Toast/Notification Component (shadcn/ui)
-  - [ ] 2.2.6 Select Component (shadcn/ui)
-  - [ ] 2.2.7 Dropdown Menu Component (shadcn/ui)
-  - [ ] 2.2.8 Tabs Component (shadcn/ui)
-  - [ ] 2.2.9 Form Components (shadcn/ui)
-- [ ] 2.3 إنشاء Layout Components
-  - [ ] 2.3.1 Header/Navbar
-  - [ ] 2.3.2 Footer
-  - [ ] 2.3.3 Sidebar
-- [ ] 2.4 إعداد نظام الأيقونات (Lucide Icons)
-- [ ] 2.5 إنشاء مكون الأشكال المتحركة (Floating Shapes)
-- [ ] 2.6 Design System Governance
-  - [ ] 2.6.1 Component documentation (Storybook)
-  - [ ] 2.6.2 Design tokens
-  - [ ] 2.6.3 Usage guidelines
+- [x] 2.1 إنشاء نظام الألوان (Dark Mode و Light Mode)
+- [x] 2.2 بناء مكونات UI باستخدام shadcn/ui
+  - [x] 2.2.1 Button Component (shadcn/ui)
+  - [x] 2.2.2 Input Component (shadcn/ui)
+  - [x] 2.2.3 Card Component (shadcn/ui)
+  - [x] 2.2.4 Dialog/Modal Component (shadcn/ui)
+  - [x] 2.2.5 Toast/Notification Component (shadcn/ui)
+  - [x] 2.2.6 Select Component (shadcn/ui)
+  - [x] 2.2.7 Dropdown Menu Component (shadcn/ui)
+  - [x] 2.2.8 Tabs Component (shadcn/ui)
+  - [x] 2.2.9 Form Components (shadcn/ui)
+- [x] 2.3 إنشاء Layout Components
+  - [x] 2.3.1 Header/Navbar
+  - [x] 2.3.2 Footer
+  - [x] 2.3.3 Sidebar
+- [x] 2.4 إعداد نظام الأيقونات (Lucide Icons)
+- [x] 2.5 إنشاء مكون الأشكال المتحركة (Floating Shapes)
+- [x] 2.6 Design System Governance
+  - [x] 2.6.1 Component documentation (Storybook)
+  - [x] 2.6.2 Design tokens
+  - [x] 2.6.3 Usage guidelines
 
 ### 3. الموقع العام (Public Website)
 
-- [ ] 3.1 صفحة الهبوط (Landing Page)
-  - [ ] 3.1.1 Hero Section مع الأنيميشن
-  - [ ] 3.1.2 Features Grid
-  - [ ] 3.1.3 Testimonials Section
-  - [ ] 3.1.4 CTA Section
-- [ ] 3.2 صفحة الأسعار (Pricing Page)
-  - [ ] 3.2.1 Pricing Cards للخطط الثلاث
-  - [ ] 3.2.2 Feature Comparison Table
-- [ ] 3.3 صفحة العرض التوضيحي (Demo Page)
-- [ ] 3.4 صفحة التواصل (Contact Page)
-  - [ ] 3.4.1 Contact Form مع التحقق
-  - [ ] 3.4.2 معالجة إرسال النموذج
+- [x] 3.1 Public Header/Navbar
+  - [x] 3.1.1 Logo و Navigation Links
+  - [x] 3.1.2 Theme Toggle (Dark/Light Mode)
+  - [x] 3.1.3 Language Selector (EN/AR)
+  - [x] 3.1.4 Login/Register Buttons
+  - [x] 3.1.5 Mobile Responsive Menu
+  - [x] 3.1.6 Sticky Header on Scroll
+- [x] 3.2 صفحة الهبوط (Landing Page)
+  - [x] 3.2.1 Hero Section مع الأنيميشن
+  - [x] 3.2.2 Features Grid
+  - [x] 3.2.3 Testimonials Section
+  - [x] 3.2.4 CTA Section
+- [x] 3.3 صفحة الأسعار (Pricing Page)
+  - [x] 3.3.1 Pricing Cards للخطط الثلاث
+  - [x] 3.3.2 Feature Comparison Table
+- [x] 3.4 صفحة العرض التوضيحي (Demo Page)
+- [x] 3.5 صفحة التواصل (Contact Page)
+  - [x] 3.5.1 Contact Form مع التحقق
+  - [x] 3.5.2 معالجة إرسال النموذج
+- [x] 3.6 Public Footer
+  - [x] 3.6.1 Footer Links (About, Privacy, Terms)
+  - [x] 3.6.2 Social Media Links
+  - [x] 3.6.3 Newsletter Subscription
+  - [x] 3.6.4 Copyright Information
+- [x] 3.7 صفحة إرشادات الاستخدام الشاملة (Comprehensive User Guide)
+  - [x] 3.7.1 تصميم Layout الصفحة
+    - [x] 3.7.1.1 Sidebar للتنقل بين الأقسام
+    - [x] 3.7.1.2 Content Area الرئيسية
+    - [x] 3.7.1.3 Progress Indicator
+    - [x] 3.7.1.4 Search functionality
+  - [x] 3.7.2 قسم البدء السريع (Getting Started)
+    - [x] 3.7.2.1 مقدمة عن المنصة
+    - [x] 3.7.2.2 كيفية التسجيل
+    - [x] 3.7.2.3 اختيار خطة الاشتراك
+    - [x] 3.7.2.4 إعداد الحساب الأول
+  - [x] 3.7.3 سيناريو العميل (Customer Journey)
+    - [x] 3.7.3.1 مسح QR Code
+    - [x] 3.7.3.2 تصفح القائمة
+    - [x] 3.7.3.3 البحث عن الأطباق
+    - [x] 3.7.3.4 استخدام AI Assistant
+    - [x] 3.7.3.5 عرض AR للأطباق
+    - [x] 3.7.3.6 إضافة للسلة
+    - [x] 3.7.3.7 تقديم الطلب
+    - [x] 3.7.3.8 تتبع الطلب
+    - [x] 3.7.3.9 تقديم التقييم
+  - [x] 3.7.4 سيناريو صاحب المطعم (Restaurant Owner)
+    - [x] 3.7.4.1 إعداد معلومات المطعم
+    - [x] 3.7.4.2 إضافة القائمة والأطباق
+    - [x] 3.7.4.3 رفع الصور ونماذج 3D
+    - [x] 3.7.4.4 إدارة الفئات
+    - [x] 3.7.4.5 توليد QR Codes للطاولات
+    - [x] 3.7.4.6 إدارة الموظفين
+    - [x] 3.7.4.7 عرض التحليلات
+    - [x] 3.7.4.8 إدارة الاشتراك
+    - [x] 3.7.4.9 عرض التقييمات
+  - [x] 3.7.5 سيناريو موظف المطبخ (Kitchen Staff)
+    - [x] 3.7.5.1 تسجيل الدخول
+    - [x] 3.7.5.2 عرض الطلبات الجديدة
+    - [x] 3.7.5.3 تحديث حالة الطلب
+    - [x] 3.7.5.4 التعامل مع الإشعارات
+  - [x] 3.7.6 سيناريو موظف التوصيل (Delivery Personnel)
+    - [x] 3.7.6.1 عرض الطلبات الجاهزة
+    - [x] 3.7.6.2 قبول الطلب
+    - [x] 3.7.6.3 استخدام الخريطة
+    - [x] 3.7.6.4 تحديث حالة التوصيل
+  - [x] 3.7.7 سيناريو مدير المنصة (Platform Admin)
+    - [x] 3.7.7.1 إدارة المطاعم
+    - [x] 3.7.7.2 إدارة الاشتراكات
+    - [x] 3.7.7.3 عرض التحليلات الشاملة
+    - [x] 3.7.7.4 إدارة النظام
+  - [x] 3.7.8 الميزات المتقدمة
+    - [x] 3.7.8.1 استخدام AI Assistant بفعالية
+    - [x] 3.7.8.2 تحسين نماذج AR
+    - [x] 3.7.8.3 تحليل البيانات
+    - [x] 3.7.8.4 التكامل مع أنظمة خارجية
+  - [x] 3.7.9 الأسئلة الشائعة (FAQ)
+    - [x] 3.7.9.1 أسئلة عامة
+    - [x] 3.7.9.2 أسئلة تقنية
+    - [x] 3.7.9.3 أسئلة الفوترة
+    - [x] 3.7.9.4 أسئلة الدعم
+  - [x] 3.7.10 استكشاف الأخطاء (Troubleshooting)
+    - [x] 3.7.10.1 مشاكل تسجيل الدخول
+    - [x] 3.7.10.2 مشاكل QR Code
+    - [x] 3.7.10.3 مشاكل AR
+    - [x] 3.7.10.4 مشاكل الدفع
+  - [x] 3.7.11 الصور والرسوم التوضيحية
+    - [x] 3.7.11.1 Screenshots افتراضية لكل خطوة
+    - [x] 3.7.11.2 Diagrams توضيحية
+    - [x] 3.7.11.3 Video tutorials (اختياري)
+    - [x] 3.7.11.4 Interactive demos
+  - [x] 3.7.12 تحسينات UX للصفحة
+    - [x] 3.7.12.1 Table of Contents
+    - [x] 3.7.12.2 Breadcrumbs navigation
+    - [x] 3.7.12.3 "Was this helpful?" feedback
+    - [x] 3.7.12.4 Print-friendly version
+    - [x] 3.7.12.5 Share functionality
 
 ### 4. نظام المصادقة (Authentication Module)
 
-- [ ] 4.1 صفحة تسجيل الدخول (Login Page)
-  - [ ] 4.1.1 نموذج تسجيل الدخول
-  - [ ] 4.1.2 التحقق من صحة البيانات
-  - [ ] 4.1.3 معالجة الأخطاء
-- [ ] 4.2 صفحة التسجيل (Register Page)
-  - [ ] 4.2.1 نموذج التسجيل
-  - [ ] 4.2.2 Password Strength Meter
-  - [ ] 4.2.3 التحقق من تعقيد كلمة المرور
-- [ ] 4.3 صفحة إعادة تعيين كلمة المرور
-- [ ] 4.4 صفحة إعداد المصادقة الثنائية (2FA)
-- [ ] 4.5 إنشاء Auth Context و Hooks
-- [ ] 4.6 إنشاء Protected Route Component
-- [ ] 4.7 معالجة JWT Token (تخزين واسترجاع)
+- [x] 4.1 صفحة تسجيل الدخول (Login Page)
+  - [x] 4.1.1 نموذج تسجيل الدخول
+  - [x] 4.1.2 التحقق من صحة البيانات
+  - [x] 4.1.3 معالجة الأخطاء
+- [x] 4.2 صفحة التسجيل (Register Page)
+  - [x] 4.2.1 نموذج التسجيل
+  - [x] 4.2.2 Password Strength Meter
+  - [x] 4.2.3 التحقق من تعقيد كلمة المرور
+- [x] 4.3 صفحة إعادة تعيين كلمة المرور
+- [x] 4.4 صفحة إعداد المصادقة الثنائية (2FA)
+- [x] 4.5 إنشاء Auth Context و Hooks
+- [x] 4.6 إنشاء Protected Route Component
+- [x] 4.7 معالجة JWT Token (تخزين واسترجاع)
 
 ### 5. قائمة QR الرقمية (QR Menu Module)
 

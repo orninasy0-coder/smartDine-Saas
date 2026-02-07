@@ -2,6 +2,8 @@
  * Authentication types
  */
 
+import type { UserRole } from '@/utils/types';
+
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -28,6 +30,10 @@ export interface AuthResponse {
   user: {
     id: string;
     email: string;
-    role: string;
+    role: UserRole;
+    restaurantId?: string;
+    twoFactorEnabled: boolean;
+    createdAt: string;
+    updatedAt: string;
   };
 }
