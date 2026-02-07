@@ -16,17 +16,17 @@
   - [x] 1.3.3 إضافة المكونات الأساسية (Button, Input, Card, Dialog, etc.)
   - [x] 1.3.4 تخصيص theme colors
 - [x] 1.4 إعداد React Router للتوجيه
-- [ ] 1.5 إعداد React Query لإدارة الحالة
-- [ ] 1.6 إنشاء بنية المجلدات (components, pages, hooks, utils, services)
-  - [ ] 1.6.1 Modular folder architecture
-  - [ ] 1.6.2 Feature-based organization
-  - [ ] 1.6.3 Shared components structure
-- [ ] 1.7 إعداد متغيرات البيئة (.env)
-- [ ] 1.8 تكوين ESLint و Prettier
-- [ ] 1.9 State Management Strategy
-  - [ ] 1.9.1 Global state setup (Zustand/Redux)
-  - [ ] 1.9.2 Server state with React Query
-  - [ ] 1.9.3 Local state guidelines
+- [x] 1.5 إعداد React Query لإدارة الحالة
+- [x] 1.6 إنشاء بنية المجلدات (components, pages, hooks, utils, services)
+  - [x] 1.6.1 Modular folder architecture
+  - [x] 1.6.2 Feature-based organization
+  - [x] 1.6.3 Shared components structure
+- [x] 1.7 إعداد متغيرات البيئة (.env)
+- [x] 1.8 تكوين ESLint و Prettier
+- [x] 1.9 State Management Strategy
+  - [x] 1.9.1 Global state setup (Zustand/Redux)
+  - [x] 1.9.2 Server state with React Query
+  - [x] 1.9.3 Local state guidelines
 
 ### 2. نظام التصميم والمكونات الأساسية
 
