@@ -1,7 +1,5 @@
 /**
- * Orders feature module
- * Public exports for orders feature
+ * Orders feature exports
  */
 
-export * from './hooks';
-export * from './services';
+export * from './components';

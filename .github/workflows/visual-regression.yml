@@ -1,0 +1,125 @@
+name: Visual Regression Tests
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      update_baselines:
+        description: 'Update baseline screenshots'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  visual-regression:
+    name: Visual Regression Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run visual regression tests
+        if: ${{ !github.event.inputs.update_baselines }}
+        run: npm run test:visual -- --project=${{ matrix.browser }}
+        env:
+          CI: true
+
+      - name: Update baseline screenshots
+        if: ${{ github.event.inputs.update_baselines }}
+        run: npm run test:visual:update -- --project=${{ matrix.browser }}
+        env:
+          CI: true
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Upload visual diff artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diffs-${{ matrix.browser }}
+          path: |
+            e2e/**/*-actual.png
+            e2e/**/*-diff.png
+          retention-days: 30
+
+      - name: Upload updated baselines
+        if: ${{ github.event.inputs.update_baselines }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: updated-baselines-${{ matrix.browser }}
+          path: e2e/**/*-snapshots/
+          retention-days: 7
+
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request' && failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const comment = `## 🎨 Visual Regression Test Failed
+            
+            Visual differences detected in **${{ matrix.browser }}** browser.
+            
+            Please review the visual differences in the artifacts:
+            - [View Test Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - Download \`visual-diffs-${{ matrix.browser }}\` artifact to see the differences
+            
+            If the changes are intentional, update the baselines by running:
+            \`\`\`bash
+            npm run test:visual:update -- --project=${{ matrix.browser }}
+            \`\`\`
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  visual-regression-summary:
+    name: Visual Regression Summary
+    runs-on: ubuntu-latest
+    needs: visual-regression
+    if: always()
+
+    steps:
+      - name: Check test results
+        run: |
+          if [ "${{ needs.visual-regression.result }}" == "failure" ]; then
+            echo "❌ Visual regression tests failed"
+            exit 1
+          else
+            echo "✅ Visual regression tests passed"
+          fi

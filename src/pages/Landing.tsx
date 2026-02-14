@@ -1,4 +1,4 @@
-import { FloatingShapes } from '@/components/common';
+import { FloatingShapes, SEO } from '@/components/common';
 import { Header, Footer } from '@/components/layout';
 import { HeroSection, FeaturesGrid, TestimonialsSection, UserGuideSection, CTASection } from '@/components/landing';
 
@@ -17,6 +17,16 @@ import { HeroSection, FeaturesGrid, TestimonialsSection, UserGuideSection, CTASe
 export default function Landing() {
   return (
     <div className="relative min-h-screen bg-background">
+      {/* SEO Meta Tags */}
+      <SEO
+        title="SmartDine - AI-Powered Digital QR Menu Platform"
+        description="Transform your restaurant with SmartDine. Create stunning digital QR menus with AI recommendations, AR dish visualization, and seamless ordering."
+        keywords={['digital menu', 'QR menu', 'restaurant SaaS', 'AI dining', 'AR menu', 'smart restaurant']}
+        ogImage="/images/landing-hero.png"
+        ogType="website"
+        twitterCard="summary_large_image"
+      />
+      
       {/* Floating Shapes Background */}
       <FloatingShapes count={6} />
 

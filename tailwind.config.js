@@ -61,6 +61,23 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // RTL support plugin
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.rtl-flip': {
+          '[dir="rtl"] &': {
+            transform: 'scaleX(-1)',
+          },
+        },
+        '.ltr-flip': {
+          '[dir="ltr"] &': {
+            transform: 'scaleX(-1)',
+          },
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
   darkMode: 'class',
 };

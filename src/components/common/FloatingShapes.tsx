@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { prefersReducedMotion } from '@/utils/animationOptimization';
 
 interface Shape {
   id: number;
@@ -19,6 +20,7 @@ interface FloatingShapesProps {
 
 /**
  * Generate random shapes with deterministic properties
+ * Memoized to prevent regeneration on every render
  */
 function generateShapes(count: number): Shape[] {
   const colors = [
@@ -47,16 +49,22 @@ function generateShapes(count: number): Shape[] {
  *
  * Renders animated floating shapes in the background for visual appeal.
  * Shapes float with smooth animations using Framer Motion.
+ * 
+ * Performance optimizations:
+ * - Memoized shape generation
+ * - Reduced motion support
+ * - GPU-accelerated transforms
+ * - will-change CSS property for smooth animations
  *
  * @param count - Number of shapes to render (default: 8)
  * @param className - Additional CSS classes for the container
  */
 export function FloatingShapes({ count = 8, className = '' }: FloatingShapesProps) {
-  const [shapes, setShapes] = useState<Shape[]>([]);
-
-  useEffect(() => {
-    setShapes(generateShapes(count));
-  }, [count]);
+  // Memoize shapes to prevent regeneration on every render
+  const shapes = useMemo(() => generateShapes(count), [count]);
+  
+  // Check for reduced motion preference
+  const shouldReduceMotion = prefersReducedMotion();
 
   const getShapeClasses = (shape: Shape) => {
     const baseClasses = `absolute ${shape.color} blur-2xl`;
@@ -73,6 +81,11 @@ export function FloatingShapes({ count = 8, className = '' }: FloatingShapesProp
     }
   };
 
+  // If user prefers reduced motion, don't render animations
+  if (shouldReduceMotion) {
+    return null;
+  }
+
   return (
     <div
       className={`pointer-events-none fixed inset-0 overflow-hidden ${className}`}
@@ -87,6 +100,7 @@ export function FloatingShapes({ count = 8, className = '' }: FloatingShapesProp
             height: shape.size,
             left: `${shape.x}%`,
             top: `${shape.y}%`,
+            willChange: 'transform', // Hint browser for GPU acceleration
           }}
           animate={{
             y: [0, -30, 0],

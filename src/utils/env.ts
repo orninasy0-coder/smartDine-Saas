@@ -45,6 +45,8 @@ interface EnvConfig {
   // Analytics
   GA_MEASUREMENT_ID?: string;
   SENTRY_DSN?: string;
+  POSTHOG_API_KEY?: string;
+  POSTHOG_API_HOST?: string;
   DEBUG_MODE: boolean;
 
   // WebSocket
@@ -162,6 +164,8 @@ export const env: EnvConfig = {
   // Analytics
   GA_MEASUREMENT_ID: getEnv('GA_MEASUREMENT_ID'),
   SENTRY_DSN: getEnv('SENTRY_DSN'),
+  POSTHOG_API_KEY: getEnv('POSTHOG_API_KEY'),
+  POSTHOG_API_HOST: getEnv('POSTHOG_API_HOST', 'https://app.posthog.com'),
   DEBUG_MODE: getBooleanEnv('DEBUG_MODE', false),
 
   // WebSocket

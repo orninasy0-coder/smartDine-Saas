@@ -33,8 +33,10 @@ export const Cart: React.FC = () => {
   };
 
   const handleCheckout = () => {
-    // TODO: Navigate to checkout/order confirmation page
-    console.log('Proceeding to checkout with cart:', cart);
+    // TODO: Submit order to API and get order ID
+    // For now, navigate to order confirmation with mock order ID
+    const mockOrderId = 'mock-order-' + Date.now();
+    navigate(`/${restaurantId}/order/${mockOrderId}`);
   };
 
   return (

@@ -1,45 +1,37 @@
 /**
- * useCart hook - manages cart state
+ * useCart hook - manages cart state using Zustand store
+ * This is a convenience wrapper around the cart store
  */
 
-import { useState, useEffect } from 'react';
-import { cartService } from '../services';
-import type { CartItem, CartState } from '@/utils/types';
+import { useCartStore } from '@/store/cartStore';
+import type { CartItem } from '@/store/cartStore';
 
 export const useCart = () => {
-  const [cart, setCart] = useState<CartState>(cartService.getCart());
-
-  useEffect(() => {
-    // Load cart from storage on mount
-    setCart(cartService.getCart());
-  }, []);
-
-  const addItem = (item: CartItem) => {
-    const newCart = cartService.addItem(cart, item);
-    setCart(newCart);
-  };
-
-  const updateQuantity = (dishId: string, quantity: number) => {
-    const newCart = cartService.updateQuantity(cart, dishId, quantity);
-    setCart(newCart);
-  };
-
-  const removeItem = (dishId: string) => {
-    const newCart = cartService.removeItem(cart, dishId);
-    setCart(newCart);
-  };
-
-  const clearCart = () => {
-    cartService.clearCart();
-    setCart({ items: [], total: 0, restaurantId: '' });
-  };
+  const items = useCartStore((state) => state.items);
+  const restaurantId = useCartStore((state) => state.restaurantId);
+  const tableNumber = useCartStore((state) => state.tableNumber);
+  const addItem = useCartStore((state) => state.addItem);
+  const removeItem = useCartStore((state) => state.removeItem);
+  const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const updateNotes = useCartStore((state) => state.updateNotes);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const setTableNumber = useCartStore((state) => state.setTableNumber);
+  const getTotal = useCartStore((state) => state.getTotal);
+  const getItemCount = useCartStore((state) => state.getItemCount);
 
   return {
-    cart,
-    addItem,
+    cart: {
+      items,
+      total: getTotal(),
+      restaurantId: restaurantId || '',
+      tableNumber,
+    },
+    addItem: (item: CartItem, restaurantIdParam: string) => addItem(item, restaurantIdParam),
     updateQuantity,
+    updateNotes,
     removeItem,
     clearCart,
-    itemCount: cart.items.length,
+    setTableNumber,
+    itemCount: getItemCount(),
   };
 };

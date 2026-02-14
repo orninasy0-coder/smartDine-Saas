@@ -34,19 +34,25 @@
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-arabic: 'Cairo', system-ui, sans-serif;
 
-  /* Custom Animations */
+  /* Custom Animations - Performance Optimized */
   --animate-float: float 6s ease-in-out infinite;
   --animate-fade-in: fadeIn 0.5s ease-in;
   --animate-slide-up: slideUp 0.5s ease-out;
   --animate-slide-down: slideDown 0.5s ease-out;
+  --animate-slide-in-left: slideInLeft 0.5s ease-out;
+  --animate-slide-in-right: slideInRight 0.5s ease-out;
+  --animate-scale-in: scaleIn 0.5s ease-out;
+  --animate-spin: spin 1s linear infinite;
+  --animate-pulse: pulse 2s ease-in-out infinite;
 
+  /* GPU-accelerated keyframes using translateZ(0) for better performance */
   @keyframes float {
     0%,
     100% {
-      transform: translateY(0px);
+      transform: translateY(0px) translateZ(0);
     }
     50% {
-      transform: translateY(-20px);
+      transform: translateY(-20px) translateZ(0);
     }
   }
 
@@ -61,23 +67,77 @@
 
   @keyframes slideUp {
     0% {
-      transform: translateY(20px);
+      transform: translateY(20px) translateZ(0);
       opacity: 0;
     }
     100% {
-      transform: translateY(0);
+      transform: translateY(0) translateZ(0);
       opacity: 1;
     }
   }
 
   @keyframes slideDown {
     0% {
-      transform: translateY(-20px);
+      transform: translateY(-20px) translateZ(0);
       opacity: 0;
     }
     100% {
-      transform: translateY(0);
+      transform: translateY(0) translateZ(0);
       opacity: 1;
+    }
+  }
+
+  @keyframes slideInLeft {
+    0% {
+      transform: translateX(-20px) translateZ(0);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0) translateZ(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInRight {
+    0% {
+      transform: translateX(20px) translateZ(0);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0) translateZ(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleIn {
+    0% {
+      transform: scale(0.9) translateZ(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1) translateZ(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg) translateZ(0);
+    }
+    100% {
+      transform: rotate(360deg) translateZ(0);
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: scale(1) translateZ(0);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05) translateZ(0);
+      opacity: 0.8;
     }
   }
 }
@@ -93,6 +153,50 @@
   /* RTL Support for Arabic */
   [dir='rtl'] {
     direction: rtl;
+  }
+
+  /* Apply Arabic font when in RTL mode */
+  [dir='rtl'] body {
+    font-family: var(--font-arabic);
+  }
+
+  /* Ensure proper text alignment in RTL */
+  [dir='rtl'] {
+    text-align: start;
+  }
+
+  /* Fix input and textarea direction */
+  [dir='rtl'] input,
+  [dir='rtl'] textarea {
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* Fix select elements */
+  [dir='rtl'] select {
+    background-position: left 0.5rem center;
+  }
+
+  /* Fix checkbox and radio alignment */
+  [dir='rtl'] input[type='checkbox'],
+  [dir='rtl'] input[type='radio'] {
+    margin-left: 0.5rem;
+    margin-right: 0;
+  }
+
+  /* Fix list item markers */
+  [dir='rtl'] ul,
+  [dir='rtl'] ol {
+    padding-right: 1.5rem;
+    padding-left: 0;
+  }
+
+  /* Fix blockquote */
+  [dir='rtl'] blockquote {
+    border-right-width: 4px;
+    border-left-width: 0;
+    padding-right: 1rem;
+    padding-left: 0;
   }
 }
 
@@ -116,6 +220,132 @@
 
   .animate-slide-down {
     animation: var(--animate-slide-down);
+  }
+
+  .animate-slide-in-left {
+    animation: var(--animate-slide-in-left);
+  }
+
+  .animate-slide-in-right {
+    animation: var(--animate-slide-in-right);
+  }
+
+  .animate-scale-in {
+    animation: var(--animate-scale-in);
+  }
+
+  .animate-spin {
+    animation: var(--animate-spin);
+  }
+
+  .animate-pulse {
+    animation: var(--animate-pulse);
+  }
+
+  /* Performance optimization utilities */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  .will-change-auto {
+    will-change: auto;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float,
+    .animate-slide-up,
+    .animate-slide-down,
+    .animate-slide-in-left,
+    .animate-slide-in-right,
+    .animate-scale-in,
+    .animate-spin,
+    .animate-pulse {
+      animation: var(--animate-fade-in);
+    }
+
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* RTL-aware utilities */
+  .rtl-mirror {
+    [dir='rtl'] & {
+      transform: scaleX(-1);
+    }
+  }
+
+  .ltr-mirror {
+    [dir='ltr'] & {
+      transform: scaleX(-1);
+    }
+  }
+
+  /* Logical property utilities for better RTL support */
+  .ms-auto {
+    margin-inline-start: auto;
+  }
+
+  .me-auto {
+    margin-inline-end: auto;
+  }
+
+  .ps-safe {
+    padding-inline-start: env(safe-area-inset-left);
+  }
+
+  .pe-safe {
+    padding-inline-end: env(safe-area-inset-right);
+  }
+
+  /* Text alignment utilities */
+  .text-start {
+    text-align: start;
+  }
+
+  .text-end {
+    text-align: end;
+  }
+
+  /* Float utilities */
+  .float-start {
+    float: inline-start;
+  }
+
+  .float-end {
+    float: inline-end;
+  }
+
+  /* Border utilities */
+  .border-s {
+    border-inline-start-width: 1px;
+  }
+
+  .border-e {
+    border-inline-end-width: 1px;
+  }
+
+  /* Rounded corners for RTL */
+  .rounded-s {
+    border-start-start-radius: 0.25rem;
+    border-end-start-radius: 0.25rem;
+  }
+
+  .rounded-e {
+    border-start-end-radius: 0.25rem;
+    border-end-end-radius: 0.25rem;
   }
 }
 

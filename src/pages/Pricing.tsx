@@ -1,4 +1,4 @@
-import { FloatingShapes } from '@/components/common';
+import { FloatingShapes, SEO } from '@/components/common';
 import { Header, Footer } from '@/components/layout';
 import { PricingCards, FeatureComparisonTable } from '@/components/landing';
 import { motion } from 'framer-motion';
@@ -16,6 +16,17 @@ import { motion } from 'framer-motion';
 export default function Pricing() {
   return (
     <div className="relative min-h-screen bg-background">
+      {/* SEO Meta Tags */}
+      <SEO
+        title="Pricing Plans - SmartDine"
+        description="Choose the perfect plan for your restaurant. Flexible pricing with AI assistant, AR viewer, and analytics included."
+        keywords={['pricing', 'restaurant plans', 'subscription', 'digital menu pricing']}
+        ogTitle="SmartDine Pricing - Choose Your Plan"
+        ogDescription="Flexible pricing plans for restaurants of all sizes. Start with our free trial today."
+        ogType="website"
+        twitterCard="summary"
+      />
+      
       {/* Floating Shapes Background */}
       <FloatingShapes count={4} />
 
